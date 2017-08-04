@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+recursive-include autentica/static *
+recursive-include autentica/templates *
+recursive-include autentica/lib *
+recursive-include autentica/util *
