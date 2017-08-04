@@ -12,11 +12,11 @@ Quick start
 
     INSTALLED_APPS = [
         ...
-        'cmcldapauth',
+        'autentica',
     ]
 
 2. Include the polls URLconf in your project urls.py like this::
 
-    url(r'^cmcldapauth/', include('cmcldapauth.urls')),
+    url(r'^autentica/', include('autentica.urls')),
 
 3. Run `python manage.py migrate` to create the module models.
