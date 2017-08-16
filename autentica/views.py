@@ -62,7 +62,20 @@ def atualiza(usuario, request):
 	request.session['setor_nome'] = setor.set_nome
 	request.session['setor_id'] = setor.set_id
 	usuario.lotado=pessoa.set_id
+	usuario.chefia = verifica_chefia(pessoa.pes_nome)
+	request.session['pessoa_chefia'] = usuario.chefia
 	usuario.save()
 
 def index(request):
 	print('INDEX')
+
+# ----------------------------------------------------------------------------------------------------------------
+# Verifica se a pessoa ocupa cargo de chefia pelo nome
+# ----------------------------------------------------------------------------------------------------------------
+def verifica_chefia(nome):
+	lista = ['Chefe', 'Diretor']
+
+	for chefia in lista:
+		if nome.find(chefia) >= 0:
+			return True
+	return False
