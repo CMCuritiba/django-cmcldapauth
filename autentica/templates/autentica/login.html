@@ -3,6 +3,7 @@
 <head>
   {% load pipeline %}
   {% stylesheet 'master' %}
+  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -19,17 +20,29 @@
 
   <form class="form-signin" method="POST" action="/autentica/valida-usuario/">
     {% csrf_token %}
-    <input type="hidden" id="next" name="next" value="{{next}}" />
+    <input type="hidden" id="next" name="next" value="{{next}}"/>
     <h2 class="form-signin-heading">CMC Autenticação</h2>
     <label for="usuario" class="sr-only">Usuário</label>
-    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuário" required autofocus>
+    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuário" required autofocus data-toggle="tooltip" data-placement="right" title="Usuário que você usa na rede">
     <label for="senha" class="sr-only">Senha</label>
-    <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha" required>
+    <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha" required data-toggle="tooltip" data-placement="right" title="Senha que você usa na rede">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
   </form>
   </div>
-
+  <footer class="footer">
+    <div class="container">
+      <br/>
+      <p class="text-muted" align="center">Módulo de autenticação integrado desenvolvido pelo Departamento de Informática da CMC.</p>
+    </div>
+  </footer>
+  
   {% javascript 'master' %}
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip(); 
+    });
+  </script>
 
 </body>
 </html>
