@@ -11,7 +11,8 @@ autentica/views.py
 autentica/lib/msconsumer.py
 autentica/migrations/0001_initial.py
 autentica/migrations/__init__.py
-autentica/static/login..css
+autentica/static/login.css
+autentica/static/css/login.css
 autentica/static/css/master.css
 autentica/static/js/master.js
 autentica/templates/autentica/login.html
