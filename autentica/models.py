@@ -16,6 +16,7 @@ class User(AbstractUser):
 	last_name = models.CharField(max_length=200)
 	lotado = models.CharField(max_length=200, blank=True)
 	matricula = models.CharField(max_length=200, blank=True)
+	pessoa = models.IntegerField(blank=True, null=True)
 	chefia = models.NullBooleanField()
 
 	def __str__(self):
