@@ -52,17 +52,20 @@ def sair(request):
 # Atualiza setor do usuario de acordo com servico elotech
 # ----------------------------------------------------------------------------------------------------------------
 def atualiza(usuario, request):
-	cons = MSCMCConsumer()
-	pessoa = cons.consome_pessoa(usuario.matricula)
-	setor = cons.consome_setor(usuario.matricula)
 
-	request.session['pessoa_nome'] = pessoa.pes_nome
-	request.session['pessoa_matricula'] = pessoa.pes_matricula
+	cons = MSCMCConsumer()
+	#pessoa = cons.consome_pessoa(usuario.matricula)
+	funcionario = cons.consome_funcionario(usuario.pessoa)
+	setor = cons.consome_setor(funcionario.set_id)
+
+	request.session['pessoa_nome'] = funcionario.pes_nome
+	request.session['pessoa_matricula'] = funcionario.matricula
+	request.session['pessoa_pessoa'] = funcionario.pessoa
 
 	request.session['setor_nome'] = setor.set_nome
 	request.session['setor_id'] = setor.set_id
-	usuario.lotado=pessoa.set_id
-	usuario.chefia = verifica_chefia(pessoa.pes_nome)
+	usuario.lotado=funcionario.set_id
+	usuario.chefia = verifica_chefia(funcionario.funcao)
 	request.session['pessoa_chefia'] = usuario.chefia
 	usuario.save()
 
@@ -72,10 +75,7 @@ def index(request):
 # ----------------------------------------------------------------------------------------------------------------
 # Verifica se a pessoa ocupa cargo de chefia pelo nome
 # ----------------------------------------------------------------------------------------------------------------
-def verifica_chefia(nome):
-	lista = ['Chefe', 'Diretor']
-
-	for chefia in lista:
-		if nome.find(chefia) >= 0:
-			return True
+def verifica_chefia(funcao):
+	if funcao is None:
+		return True
 	return False
