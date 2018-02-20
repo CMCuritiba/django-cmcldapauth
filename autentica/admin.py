@@ -16,12 +16,12 @@ class CustomUserAdmin(UserAdmin):
 		return False
 
 	def get_readonly_fields(self, request, obj=None):
-		retorno = ['username', 'first_name', 'last_name', 'email', 'is_active', 'date_joined', 'lotado', 'matricula', 'chefia','is_superuser','last_login','password']
+		retorno = ['username', 'first_name', 'last_name', 'email', 'is_active', 'date_joined', 'lotado', 'matricula', 'chefia','is_superuser','last_login','password', 'pessoa']
 		
 		return retorno
 
 	fieldsets = UserAdmin.fieldsets + (
-		(None, {'fields': ('lotado', 'matricula', 'chefia',)}),
+		(None, {'fields': ('lotado', 'matricula', 'chefia', 'pessoa')}),
 	)
 	list_per_page = 20
 	ordering = ('username', 'lotado')
