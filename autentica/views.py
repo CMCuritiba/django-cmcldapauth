@@ -66,6 +66,7 @@ def atualiza(usuario, request):
 	request.session['setor_id'] = setor.set_id
 	usuario.lotado=funcionario.set_id
 	usuario.chefia = verifica_chefia(funcionario.funcao)
+	usuario.pessoa = funcionario.pessoa
 	request.session['pessoa_chefia'] = usuario.chefia
 	usuario.save()
 
