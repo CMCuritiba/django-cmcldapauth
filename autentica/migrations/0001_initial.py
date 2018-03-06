@@ -35,8 +35,7 @@ class Migration(migrations.Migration):
                 ('matricula', models.CharField(blank=True, max_length=200)),
                 ('chefia', models.NullBooleanField()),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
-                ('pessoa', models.IntegerField(blank=True, null=True)),
+                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions'))
             ],
             options={
                 'verbose_name': 'user',
