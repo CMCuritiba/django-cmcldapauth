@@ -8,7 +8,10 @@ autentica/apps.py
 autentica/models.py
 autentica/urls.py
 autentica/views.py
+autentica/lib/error_handler.py
+autentica/lib/exceptions.py
 autentica/lib/msconsumer.py
+autentica/lib/responses.py
 autentica/migrations/0001_initial.py
 autentica/migrations/__init__.py
 autentica/static/login.css
