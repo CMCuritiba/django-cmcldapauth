@@ -33,7 +33,12 @@ def valida_usuario(request):
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				atualiza(user, request)
+				try:
+					atualiza(user, request)
+				except Exception as e:
+					messages.add_message(request, messages.ERROR, "Usuário sem permissão de acesso ao sistema.")
+					logout(request)
+					return redirect('/autentica/loga/?next=' + next)	
 				if next != None and next != 'None':
 					return HttpResponseRedirect(next)
 				return render_to_response('index.html', context_instance=RequestContext(request))
