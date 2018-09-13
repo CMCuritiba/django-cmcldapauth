@@ -77,8 +77,8 @@ class MSCMCConsumer(object):
 		print('------------------------d')
 		print(js)
 		#js = raw.readlines()
-		js_object = json.loads(js[0])
+		#js_object = json.loads(js[0])
 		print('------------------------e')
-		return Funcionario(js_object['matricula'], js_object['pessoa'], js_object['pes_nome'], js_object['funcao'], js_object['set_id'], js_object['ind_estagiario'])		
+		return Funcionario(js['matricula'], js['pessoa'], js['pes_nome'], js['funcao'], js['set_id'], js['ind_estagiario'])		
 
 		
