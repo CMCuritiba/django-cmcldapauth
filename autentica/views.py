@@ -15,7 +15,6 @@ from django import forms
 from django.db import connection, transaction
 from .lib.msconsumer import Pessoa, MSCMCConsumer
 
-import urllib
 import environ
 
 def loga(request):

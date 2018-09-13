@@ -1,7 +1,8 @@
-import urllib.request
 import environ
 import simplejson as json
 from django.conf import settings
+
+import requests
 
 
 class Pessoa(object):
