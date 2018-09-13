@@ -35,6 +35,7 @@ def valida_usuario(request):
 				try:
 					atualiza(user, request)
 				except Exception as e:
+					print('--------------------------1')
 					print(e)
 					messages.add_message(request, messages.ERROR, "Usuário sem permissão de acesso ao sistema.")
 					logout(request)
