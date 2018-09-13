@@ -66,12 +66,17 @@ class MSCMCConsumer(object):
 	# Consome o serviço que retorna dados do funcionario através da chave
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_funcionario(self, chave):
+		print('------------------------a')
 		search_url = '{}/api/funcionario/{}/?format=json'.format(self.MSCMC_SERVER, chave)
+		print('------------------------b')
 		#raw = urllib.request.urlopen(search_url)
 		r = requests.get(search_url, verify=False)
+		print('------------------------c')
 		js = r.json()
+		print('------------------------d')
 		#js = raw.readlines()
 		js_object = json.loads(js[0])
+		print('------------------------e')
 		return Funcionario(js_object['matricula'], js_object['pessoa'], js_object['pes_nome'], js_object['funcao'], js_object['set_id'], js_object['ind_estagiario'])		
 
 		
