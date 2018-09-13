@@ -35,8 +35,6 @@ def valida_usuario(request):
 				try:
 					atualiza(user, request)
 				except Exception as e:
-					print('--------------------------1')
-					print(e)
 					messages.add_message(request, messages.ERROR, "Usuário sem permissão de acesso ao sistema.")
 					logout(request)
 					return redirect('/autentica/loga/?next=' + next)	
@@ -60,12 +58,8 @@ def sair(request):
 def atualiza(usuario, request):
 
 	cons = MSCMCConsumer()
-	print('--------------------------0')
-	#pessoa = cons.consome_pessoa(usuario.matricula)
 	funcionario = cons.consome_funcionario(usuario.pessoa)
-	print('--------------------------0.1')
 	setor = cons.consome_setor(funcionario.set_id)
-	print('--------------------------0.2')
 
 	request.session['pessoa_nome'] = funcionario.pes_nome
 	request.session['pessoa_matricula'] = funcionario.matricula

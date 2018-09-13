@@ -44,10 +44,8 @@ class MSCMCConsumer(object):
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_pessoa(self, matricula):
 		search_url = '{}/api/pessoa/{}/?format=json'.format(self.MSCMC_SERVER, matricula)
-		#raw = urllib.request.urlopen(search_url)
 		r = requests.get(search_url, verify=False)
 		js = r.json()
-		#js_object = json.loads(js[0])
 		return Pessoa(js['set_id'], js['pes_matricula'], js['pes_nome'])
 
 	# ----------------------------------------------------------------------------------------------------------------
@@ -55,30 +53,17 @@ class MSCMCConsumer(object):
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_setor(self, set_id):
 		search_url = '{}/api/setor_setor/{}/?format=json'.format(self.MSCMC_SERVER, set_id)
-		#raw = urllib.request.urlopen(search_url)
 		r = requests.get(search_url, verify=False)
 		js = r.json()
-		#js = raw.readlines()
-		#js_object = json.loads(js[0])
 		return Setor(js['set_id'], js['set_nome'], js['set_sigla'], js['set_id_superior'], js['set_ativo'], js['set_tipo'])
 
 	# ----------------------------------------------------------------------------------------------------------------
 	# Consome o serviço que retorna dados do funcionario através da chave
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_funcionario(self, chave):
-		print('------------------------a')
 		search_url = '{}/api/funcionario/{}/?format=json'.format(self.MSCMC_SERVER, chave)
-		print('------------------------b')
-		#raw = urllib.request.urlopen(search_url)
 		r = requests.get(search_url, verify=False)
-		print(r)
-		print('------------------------c')
 		js = r.json()
-		print('------------------------d')
-		print(js)
-		#js = raw.readlines()
-		#js_object = json.loads(js[0])
-		print('------------------------e')
 		return Funcionario(js['matricula'], js['pessoa'], js['pes_nome'], js['funcao'], js['set_id'], js['ind_estagiario'])		
 
 		
