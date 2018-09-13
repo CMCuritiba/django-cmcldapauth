@@ -47,8 +47,8 @@ class MSCMCConsumer(object):
 		#raw = urllib.request.urlopen(search_url)
 		r = requests.get(search_url, verify=False)
 		js = r.json()
-		js_object = json.loads(js[0])
-		return Pessoa(js_object['set_id'], js_object['pes_matricula'], js_object['pes_nome'])
+		#js_object = json.loads(js[0])
+		return Pessoa(js['set_id'], js['pes_matricula'], js['pes_nome'])
 
 	# ----------------------------------------------------------------------------------------------------------------
 	# Consome o serviço que retorna dados da pessoa através da matrícula
@@ -59,8 +59,8 @@ class MSCMCConsumer(object):
 		r = requests.get(search_url, verify=False)
 		js = r.json()
 		#js = raw.readlines()
-		js_object = json.loads(js[0])
-		return Setor(js_object['set_id'], js_object['set_nome'], js_object['set_sigla'], js_object['set_id_superior'], js_object['set_ativo'], js_object['set_tipo'])
+		#js_object = json.loads(js[0])
+		return Setor(js['set_id'], js['set_nome'], js['set_sigla'], js['set_id_superior'], js['set_ativo'], js['set_tipo'])
 
 	# ----------------------------------------------------------------------------------------------------------------
 	# Consome o serviço que retorna dados do funcionario através da chave
