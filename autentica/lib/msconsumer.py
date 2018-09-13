@@ -3,7 +3,9 @@ import simplejson as json
 from django.conf import settings
 
 import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class Pessoa(object):
 	def __init__(self, set_id, pes_matricula, pes_nome):	
