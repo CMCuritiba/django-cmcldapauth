@@ -41,8 +41,9 @@ class MSCMCConsumer(object):
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_pessoa(self, matricula):
 		search_url = '{}/api/pessoa/{}/?format=json'.format(self.MSCMC_SERVER, matricula)
-		raw = urllib.request.urlopen(search_url)
-		js = raw.readlines()
+		#raw = urllib.request.urlopen(search_url)
+		r = requests.get(search_url, verify=False)
+		js = r.json()
 		js_object = json.loads(js[0])
 		return Pessoa(js_object['set_id'], js_object['pes_matricula'], js_object['pes_nome'])
 
@@ -51,8 +52,10 @@ class MSCMCConsumer(object):
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_setor(self, set_id):
 		search_url = '{}/api/setor_setor/{}/?format=json'.format(self.MSCMC_SERVER, set_id)
-		raw = urllib.request.urlopen(search_url)
-		js = raw.readlines()
+		#raw = urllib.request.urlopen(search_url)
+		r = requests.get(search_url, verify=False)
+		js = r.json()
+		#js = raw.readlines()
 		js_object = json.loads(js[0])
 		return Setor(js_object['set_id'], js_object['set_nome'], js_object['set_sigla'], js_object['set_id_superior'], js_object['set_ativo'], js_object['set_tipo'])
 
@@ -61,8 +64,10 @@ class MSCMCConsumer(object):
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_funcionario(self, chave):
 		search_url = '{}/api/funcionario/{}/?format=json'.format(self.MSCMC_SERVER, chave)
-		raw = urllib.request.urlopen(search_url)
-		js = raw.readlines()
+		#raw = urllib.request.urlopen(search_url)
+		r = requests.get(search_url, verify=False)
+		js = r.json()
+		#js = raw.readlines()
 		js_object = json.loads(js[0])
 		return Funcionario(js_object['matricula'], js_object['pessoa'], js_object['pes_nome'], js_object['funcao'], js_object['set_id'], js_object['ind_estagiario'])		
 
