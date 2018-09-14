@@ -3,9 +3,6 @@ import simplejson as json
 from django.conf import settings
 
 import requests
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class Pessoa(object):
 	def __init__(self, set_id, pes_matricula, pes_nome):	
@@ -44,11 +41,8 @@ class MSCMCConsumer(object):
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_pessoa(self, matricula):
 		search_url = '{}/api/pessoa/{}/?format=json'.format(self.MSCMC_SERVER, matricula)
-		print('----------------1')
 		r = requests.get(search_url, verify=False)
-		print('----------------2')
 		js = r.json()
-		print('----------------3')
 		return Pessoa(js['set_id'], js['pes_matricula'], js['pes_nome'])
 
 	# ----------------------------------------------------------------------------------------------------------------
@@ -56,11 +50,8 @@ class MSCMCConsumer(object):
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_setor(self, set_id):
 		search_url = '{}/api/setor_setor/{}/?format=json'.format(self.MSCMC_SERVER, set_id)
-		print('----------------4')
 		r = requests.get(search_url, verify=False)
-		print('----------------5')
 		js = r.json()
-		print('----------------6')
 		return Setor(js['set_id'], js['set_nome'], js['set_sigla'], js['set_id_superior'], js['set_ativo'], js['set_tipo'])
 
 	# ----------------------------------------------------------------------------------------------------------------
@@ -68,11 +59,8 @@ class MSCMCConsumer(object):
 	# ----------------------------------------------------------------------------------------------------------------
 	def consome_funcionario(self, chave):
 		search_url = '{}/api/funcionario/{}/?format=json'.format(self.MSCMC_SERVER, chave)
-		print('----------------7')
 		r = requests.get(search_url, verify=False)
-		print('----------------8')
 		js = r.json()
-		print('----------------9')
 		return Funcionario(js['matricula'], js['pessoa'], js['pes_nome'], js['funcao'], js['set_id'], js['ind_estagiario'])		
 
 		
