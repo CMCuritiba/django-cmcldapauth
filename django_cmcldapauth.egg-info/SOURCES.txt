@@ -17,6 +17,7 @@ autentica/migrations/__init__.py
 autentica/static/login.css
 autentica/static/css/login.css
 autentica/static/css/master.css
+autentica/static/images/brasao_transparente.png
 autentica/static/js/master.js
 autentica/templates/autentica/login.html
 autentica/tests/__init__.py
