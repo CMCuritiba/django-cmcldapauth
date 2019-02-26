@@ -42,7 +42,7 @@ def valida_usuario(request):
 					return HttpResponseRedirect(next)
 				return render_to_response('index.html', context_instance=RequestContext(request))
 			else:
-				messages.add_message(request, messages.ERROR, "Usuário válido mas desebilitado.")
+				messages.add_message(request, messages.ERROR, "Usuário válido mas desabilitado.")
 				return redirect('/autentica/loga/?next=' + next)
 		else:
 			messages.add_message(request, messages.ERROR, "Usuário ou senha incorretos.")
