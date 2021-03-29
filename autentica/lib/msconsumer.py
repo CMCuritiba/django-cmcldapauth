@@ -20,13 +20,14 @@ class Setor(object):
 		self.set_tipo = set_tipo
 
 class Funcionario(object):
-	def __init__(self, matricula, pessoa, pes_nome, funcao, set_id, ind_estagiario):	
+	def __init__(self, matricula, pessoa, pes_nome, funcao, set_id, ind_estagiario, cpf):	
 		self.matricula = matricula
 		self.pessoa = pessoa
 		self.pes_nome = pes_nome		
 		self.funcao = funcao
 		self.set_id = set_id
 		self.ind_estagiario = ind_estagiario
+		self.cpf = cpf
 
 # ----------------------------------------------------------------------------------------------------------------
 # Classe responsável por consumir as informações JSON 
@@ -61,6 +62,15 @@ class MSCMCConsumer(object):
 		search_url = '{}/api/funcionario/{}/?format=json'.format(self.MSCMC_SERVER, chave)
 		r = requests.get(search_url, verify=False)
 		js = r.json()
-		return Funcionario(js['matricula'], js['pessoa'], js['pes_nome'], js['funcao'], js['set_id'], js['ind_estagiario'])		
+		return Funcionario(js['matricula'], js['pessoa'], js['pes_nome'], js['funcao'], js['set_id'], js['ind_estagiario'], js['cpf'])		
+
+	# ----------------------------------------------------------------------------------------------------------------
+	# Consome o serviço que retorna dados do funcionario através do cpf
+	# ----------------------------------------------------------------------------------------------------------------
+	def consome_funcionario_cpf(self, cpf):
+		search_url = '{}/api/funcionario_cpf/{}/?format=json'.format(self.MSCMC_SERVER, cpf)
+		r = requests.get(search_url, verify=False)
+		js = r.json()
+		return Funcionario(js['matricula'], js['pessoa'], js['pes_nome'], js['funcao'], js['set_id'], js['ind_estagiario'], js['cpf'])				
 
 		
