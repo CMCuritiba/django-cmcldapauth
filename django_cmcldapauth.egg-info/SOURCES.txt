@@ -10,6 +10,7 @@ autentica/urls.py
 autentica/views.py
 autentica/lib/error_handler.py
 autentica/lib/exceptions.py
+autentica/lib/ldap_auth.py
 autentica/lib/msconsumer.py
 autentica/lib/responses.py
 autentica/migrations/0001_initial.py

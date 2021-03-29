@@ -4,7 +4,9 @@ from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
+from .lib.ldap_auth import AuthBackend
 from django.contrib import messages
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -24,11 +26,13 @@ def loga(request):
 	return render(request, 'autentica/login.html', context)
 
 def valida_usuario(request):
+	autentica = AuthBackend()
 	if request.method == 'POST':
 		usuario = request.POST.get('usuario')
 		senha = request.POST.get('senha')
 		next = request.POST.get('next')
-		user = authenticate(username=usuario, password=senha)
+		# user = authenticate(username=usuario, password=senha)
+		user = autentica.authenticate(request, username=usuario, password=senha)
 		if user is not None:
 			if user.is_active:
 				login(request, user)
@@ -58,18 +62,21 @@ def sair(request):
 def atualiza(usuario, request):
 
 	cons = MSCMCConsumer()
-	funcionario = cons.consome_funcionario(usuario.pessoa)
+	funcionario = cons.consome_funcionario_cpf(usuario.cpf)
 	setor = cons.consome_setor(funcionario.set_id)
 
 	request.session['pessoa_nome'] = funcionario.pes_nome
 	request.session['pessoa_matricula'] = funcionario.matricula
 	request.session['pessoa_pessoa'] = funcionario.pessoa
+	request.session['pessoa_cpf'] = funcionario.cpf
 
 	request.session['setor_nome'] = setor.set_nome
 	request.session['setor_id'] = setor.set_id
 	usuario.lotado=funcionario.set_id
 	usuario.chefia = verifica_chefia(funcionario.funcao)
 	usuario.pessoa = funcionario.pessoa
+	usuario.cpf = funcionario.cpf
+	usuario.matricula = funcionario.matricula
 	request.session['pessoa_chefia'] = usuario.chefia
 	usuario.save()
 
