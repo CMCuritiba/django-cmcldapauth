@@ -22,7 +22,6 @@ import environ
 def loga(request):
 	next = request.GET.get('next')
 	context = {'next': next}
-	#return render_to_response('autentica/login.html', context_instance=RequestContext(request, {'next': next}))	
 	return render(request, 'autentica/login.html', context)
 
 def valida_usuario(request):
@@ -31,7 +30,6 @@ def valida_usuario(request):
 		usuario = request.POST.get('usuario')
 		senha = request.POST.get('senha')
 		next = request.POST.get('next')
-		# user = authenticate(username=usuario, password=senha)
 		user = autentica.authenticate(request, username=usuario, password=senha)
 		if user is not None:
 			if user.is_active:
