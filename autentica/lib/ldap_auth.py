@@ -14,7 +14,7 @@ class AuthBackend:
 
       l.simple_bind_s("cn={},{}".format(settings.LDAP_BIND_USERNAME, settings.LDAP_AUTH_BIND_BASE),settings.LDAP_BIND_PASSWORD)
 
-      results = l.search_s("{}", ldap.SCOPE_SUBTREE, "uid={}".format(settings.LDAP_AUTH_SEARCH_BASE, username))
+      results = l.search_s(settings.LDAP_AUTH_SEARCH_BASE, ldap.SCOPE_SUBTREE, "uid={}".format(username))
 
       uid = results[0][1]['uid'][0].decode('utf-8')
       cpf = results[0][1]['employeeNumber'][0].decode('utf-8')
