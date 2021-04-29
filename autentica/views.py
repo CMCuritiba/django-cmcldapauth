@@ -16,8 +16,11 @@ from django.utils.dateparse import parse_date
 from django import forms
 from django.db import connection, transaction
 from .lib.msconsumer import Pessoa, MSCMCConsumer
+import logging
 
 import environ
+
+logger = logging.getLogger(__name__)
 
 def loga(request):
 	next = request.GET.get('next')
@@ -60,34 +63,52 @@ def sair(request):
 # Atualiza setor do usuario de acordo com servico elotech
 # ----------------------------------------------------------------------------------------------------------------
 def atualiza(usuario, request):
-	print('------------1')
-	print(usuario)
+	logger.info('------------1')
+	logger.info(usuario)
 
 	cons = MSCMCConsumer()
+	logger.info('------------2')
 	funcionario = cons.consome_funcionario_cpf(usuario.cpf)
-	print(funcionario)
+	logger.info('------------3')
+	logger.info(funcionario)
+
 	setor = cons.consome_setor(funcionario.set_id)
+	logger.info('------------4')
 
 	request.session['pessoa_nome'] = funcionario.pes_nome
+	logger.info('------------5')
 	request.session['pessoa_matricula'] = funcionario.matricula
+	logger.info('------------6')
 	request.session['pessoa_pessoa'] = funcionario.pessoa
+	logger.info('------------7')
 	request.session['pessoa_cpf'] = funcionario.cpf
+	logger.info('------------8')
 
 	request.session['setor_nome'] = setor.set_nome
+	logger.info('------------9')
 	request.session['setor_id'] = setor.set_id
+	logger.info('------------10')
 	usuario.lotado=funcionario.set_id
+	logger.info('------------11')
 	usuario.chefia = verifica_chefia(funcionario.funcao)
+	logger.info('------------12')
 	usuario.pessoa = funcionario.pessoa
+	logger.info('------------13')
 	usuario.cpf = funcionario.cpf
+	logger.info('------------14')
 	usuario.matricula = funcionario.matricula
+	logger.info('------------15')
 	request.session['pessoa_chefia'] = usuario.chefia
+	logger.info('------------16')
 
-	print(usuario.lotado)
-	print(usuario.chefia)
-	print(usuario.pessoa)
-	print(usuario.cpf)
-	print(usuario.matricula)
+	logger.info(usuario.lotado)
+	logger.info(usuario.chefia)
+	logger.info(usuario.pessoa)
+	logger.info(usuario.cpf)
+	logger.info(usuario.matricula)
+	logger.info('------------17')
 	usuario.save()
+	logger.info('------------18')
 
 def index(request):
 	print('INDEX')
