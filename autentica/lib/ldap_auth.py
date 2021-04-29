@@ -2,9 +2,11 @@ from django.conf import settings
 from django.contrib.auth.hashers import check_password
 from autentica.models import User as Usuario
 import ldap
+import logging
 
 class AuthBackend:
   def authenticate(self, request, username=None, password=None):
+    logger = logging.getLogger(__name__)
     # try:
     l = ldap.initialize(settings.LDAP_AUTH_URL, bytes_mode=False)
     l.protocol_version = ldap.VERSION3
@@ -14,6 +16,8 @@ class AuthBackend:
     l.simple_bind_s("cn={},{}".format(settings.LDAP_BIND_USERNAME, settings.LDAP_AUTH_BIND_BASE),settings.LDAP_BIND_PASSWORD)
 
     results = l.search_s(settings.LDAP_AUTH_SEARCH_BASE, ldap.SCOPE_SUBTREE, "uid={}".format(username))
+
+    logger.info(results)
 
     # uid = results[0][1]['uid'][0].decode('utf-8')
     # cpf = results[0][1]['employeeNumber'][0].decode('utf-8')
@@ -28,6 +32,18 @@ class AuthBackend:
     # username = results[0][1]['uid'][0]
     first_name = results[0][1]['givenName'][0]
     last_name = results[0][1]['sn'][0]
+
+    logger.info(uid)
+    logger.info(cpf)
+    logger.info(email)
+    logger.info(first_name)
+    logger.info(last_name)
+
+    logger.info(uid.decode())
+    logger.info(cpf.decode())
+    logger.info(email.decode())
+    logger.info(first_name.decode())
+    logger.info(last_name.decode())
 
     # except:
       # return None
