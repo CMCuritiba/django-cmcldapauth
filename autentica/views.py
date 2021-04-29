@@ -60,9 +60,12 @@ def sair(request):
 # Atualiza setor do usuario de acordo com servico elotech
 # ----------------------------------------------------------------------------------------------------------------
 def atualiza(usuario, request):
+	print('------------1')
+	print(usuario)
 
 	cons = MSCMCConsumer()
 	funcionario = cons.consome_funcionario_cpf(usuario.cpf)
+	print(funcionario)
 	setor = cons.consome_setor(funcionario.set_id)
 
 	request.session['pessoa_nome'] = funcionario.pes_nome
@@ -78,6 +81,12 @@ def atualiza(usuario, request):
 	usuario.cpf = funcionario.cpf
 	usuario.matricula = funcionario.matricula
 	request.session['pessoa_chefia'] = usuario.chefia
+
+	print(usuario.lotado)
+	print(usuario.chefia)
+	print(usuario.pessoa)
+	print(usuario.cpf)
+	print(usuario.matricula)
 	usuario.save()
 
 def index(request):
