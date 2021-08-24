@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: django-cmcldapauth
-Version: 0.4
+Version: 0.8
 Summary: Validation module that uses LDAP data to validade CMC users.
 Home-page: http://cmc.pr.gov.br/
 Author: Alexandre Odoni
