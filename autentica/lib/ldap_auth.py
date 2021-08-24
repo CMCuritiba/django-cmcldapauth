@@ -7,15 +7,16 @@ import logging
 class AuthBackend:
   def authenticate(self, request, username=None, password=None):
     logger = logging.getLogger(__name__)
+    username_lowercase = username.strip().lower()
     try:
       l = ldap.initialize(settings.LDAP_AUTH_URL, bytes_mode=False)
       l.protocol_version = ldap.VERSION3
 
-      l.simple_bind_s("uid={},{}".format(username, settings.LDAP_AUTH_SEARCH_BASE), password)
+      l.simple_bind_s("uid={},{}".format(username_lowercase, settings.LDAP_AUTH_SEARCH_BASE), password)
 
       l.simple_bind_s("cn={},{}".format(settings.LDAP_BIND_USERNAME, settings.LDAP_AUTH_BIND_BASE),settings.LDAP_BIND_PASSWORD)
 
-      results = l.search_s(settings.LDAP_AUTH_SEARCH_BASE, ldap.SCOPE_SUBTREE, "uid={}".format(username))
+      results = l.search_s(settings.LDAP_AUTH_SEARCH_BASE, ldap.SCOPE_SUBTREE, "uid={}".format(username_lowercase))
 
       # logger.info(results)
 
@@ -28,14 +29,14 @@ class AuthBackend:
       return None
 
     try:
-      user = Usuario.objects.get(username=username)
+      user = Usuario.objects.get(username=username_lowercase)
       user.cpf = cpf
     except Usuario.DoesNotExist:
-      user = Usuario(username=username)  
+      user = Usuario(username=username_lowercase)  
       user.uid = uid
       user.cpf = cpf
       user.email = email
-      user.username = username
+      user.username = username_lowercase
       user.first_name = first_name
       user.last_name = last_name
       user.save()
