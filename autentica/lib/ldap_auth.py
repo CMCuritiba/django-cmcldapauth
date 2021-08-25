@@ -29,10 +29,13 @@ class AuthBackend:
       return None
 
     try:
-      user = Usuario.objects.get(username=username_lowercase)
+      user = Usuario.objects.get(username=uid)
       user.cpf = cpf
+      user.email = email
+      user.first_name = first_name
+      user.last_name = last_name
     except Usuario.DoesNotExist:
-      user = Usuario(username=username_lowercase)  
+      user = Usuario(username=uid)  
       user.uid = uid
       user.cpf = cpf
       user.email = email
